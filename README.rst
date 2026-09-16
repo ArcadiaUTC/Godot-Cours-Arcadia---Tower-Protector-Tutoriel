@@ -1,13 +1,12 @@
-=================================
-Tutoriel Godot: Votre premier jeu
-=================================
+==================================
+Godot Tutorial: Your First Game
+===================================
 
-Bonjour jeune Arcadien.ne, n'as-tu pas toujours rêvé de faire des jeux vidéo qualitatifs rapidement ?
-Si c’est le cas, n’attends plus, car c’est exactement ce que propose Godot !!!
+Hello young Arcadian! Haven't you always dreamed of making high-quality video games quickly?
+If so, don't wait any longer, because that's exactly what Godot offers!!!
 
-Dans ce court tutoriel, tu apprendras à utiliser Godot, tout en faisant un petit jeu 2D:
-**Tower Protector** ™, un jeu de `Tower Defense <https://fr.wikipedia.org/wiki/Tower_defense>`_ dans lequel un preux chevalier tente de défendre sa tour d'une vague d'ennemis nécromanciens!
+In this short tutorial, you'll learn how to use Godot while making a small 2D game: 
+**Tower Protector** ™, a `Tower Defense game <https://en.wikipedia.org/wiki/Tower_defense>` in which a valiant knight tries to defend his tower from a wave of necromancer enemies!
 
-.. image:: img/preview.gif
+.. image:: img/preview.gif 
    :alt:
-

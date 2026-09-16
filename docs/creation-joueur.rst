@@ -1,254 +1,247 @@
-Création du Joueur
+Creating the Player
 ==================
 
-Dans cette partie du tutoriel, nous allons créer un joueur, lui ajouter des animations, et des mouvements basiques.
-À la fin de cette section, vous devriez avoir tout ça:
-
+In this part of the tutorial, we'll create a player, add animations, and basic movement.
+By the end of this section, you should have all of this:
 
 .. image:: img/playerDemo.gif
 
-.. _init-joueur:
+.. _init-player:
 
-Initialisation du Joueur
+Player Initialization
 ------------------------
 
-Pour commencer, nous allons créer un ``CharacterBody2D``. C'est un nœud 2D, qui est utilisé pour créer des personnages qui peuvent se déplacer.
-En haut à gauche, dans l'arborescence des scènes, créez une nouvelle scène en cliquant sur le bouton **Other Node** ou le bouton **+**. Ajoutez un ``CharacterBody2D``.
-Le noeud CharacterBody2D devrait apparaître dans l'arborescence, et l'éditeur devrait être passé en mode 2D.
-Avant toute chose, sauvegardez votre nouvelle scène en appuyant sur ``Ctrl+S``.
-Vous pouvez créer un dossier ``scenes`` dans votre projet, et y enregistrer la scène du joueur en l'appellant ``player.tscn``.
+To begin, we'll create a ``CharacterBody2D``. This is a 2D node used to create characters that can move.
+In the top left of the scene tree, create a new scene by clicking the **Other Node** button or the **+** button. Add a ``CharacterBody2D``.
+The CharacterBody2D node should appear in the tree, and the editor should be in 2D mode.
+First, save your new scene by pressing ``Ctrl+S``.
+You can create a ``scenes`` folder in your project and save the player scene there, naming it ``player.tscn``.
 
-À droite du ``CharacterBody2D``, vous devriez appercevoir une icône de warning. Si vous placez votre souris dessus, vous verrez le message suivant:
+To the right of ``CharacterBody2D``, you should see a warning icon. If you hover your mouse over it, you will see the following message:
 
 .. image:: img/characterbody2dwarning.png
 
 .. warning::
-   *  *"Ce nœud n'a pas de forme, il ne peut donc pas entrer en collision ou interagir avec d'autres objets.
-      Envisagez d'ajouter un* ``CollisionShape2D`` *ou un* ``CollisionPolygon2D`` *en tant qu'enfant pour définir sa forme."*
+   * *"This node has no shape, so it cannot collide or interact with other objects.
+   Consider adding a *``CollisionShape2D`` *or a *``CollisionPolygon2D`` *as a child to define its shape."*
 
-Qu'il en soit ainsi, ajoutons un ``CollisionShape2D`` en cliquant sur l'icône **+** en haut à gauche, en appuyant sur ``Ctrl+A`` ou encore en faisant: **Clic-droit -> Ajouter un nœud** sur le ``CharacterBody2D``.
+With that said, let's add a ``CollisionShape2D`` by clicking the **+** icon in the top left, pressing ``Ctrl+A``, or by: **Right-clicking -> Add Node** on the ``CharacterBody2D``.
 
-Le nœud ``CollisionShape2D`` est utilisé pour ajouter des hitbox (boîtes de collision). C'est la chose qui permettra à notre joueur d'interagir physiquement avec le monde autour de lui.
-Après avoir ajouté la CollisionShape2D, vous devriez avoir un autre warning disant que celle-ci n'a pas de forme.
+The ``CollisionShape2D`` node is used to add hitboxes (collision boxes). This is what will allow our player to physically interact with the world around them.
+After adding the CollisionShape2D, you should see another warning saying that it doesn't have a shape.
 
-Pour ajouter une shape, cliquez sur le nœud CollisionShape2D. Vous verrez alors que l'inspecteur, à droite de l'écran, affiche des informations sur la CollisionShape2D.
-Ajoutez une ``CapsuleShape2D`` dans l'attribut ``shape``, qui est normalement vide. Vous devriez voir une espèce de Tic Tac™ bleu au milieu de votre écran, c'est la shape que vous venez d'ajouter:
+To add a shape, click on the CollisionShape2D node. You'll then see the inspector on the right side of the screen display information about the CollisionShape2D.
+Add a ``CapsuleShape2D`` to the ``shape`` attribute, which is normally empty. You should see a sort of blue Tic Tac™ in the middle of your screen; that's the shape you just added:
 
-.. image:: img/collisionshape.png
+.. image:: img/collisionsshape.png
 
-
-Vous pouvez changer sa taille avec les petits cercles oranges, mais on fera ça un tout petit peu plus tard.
+You can change its size with the small orange circles, but we'll do that a little later.
 
 .. _init-anims:
 
-Création d'animations
+Creating Animations
 ---------------------
 
-À présent, nous avons un joueur constitué d'un ``CharacterBody2D`` et d'une ``CollisionShape2D``. Il nous manque du visuel!
-Nous allons donc ajouter un sprite à notre joueur.
+Now we have a player consisting of a ``CharacterBody2D`` and a ``CollisionShape2D``. We're missing some visuals!
+So we're going to add a sprite to our player.
 
 .. note::
-   Un *sprite*, c'est tout simplement une texture 2D, utilisée pour représenter un personnage, un décor, bref à peu près tout ce que vous voyez à l'écran dans un jeu 2D.
+   A *sprite* is simply a 2D texture, used to represent a character, a background, basically anything you see on the screen in a 2D game.
 
-On veut que notre joueur ait des animations, donc ajoutez un nœud ``AnimatedSprite2D`` au joueur.
+We want our player to have animations, so add an ``AnimatedSprite2D`` node to the player.
 
-Faites attention à ce que le nœud soit un enfant du ``CharacterBody2D``, et non de la ``CollisionShape2D``. En effet, on ne veut pas ajouter un sprite à notre collision, on veut ajouter un sprite à notre joueur.
-Si le nœud est mal placé dans l'arborescence, vous pouvez le drag-n-drop (restez appuyé sur le nœud et glissez-le) sur le nœud joueur.
+Be careful that the node is a child of the ``CharacterBody2D``, and not of the ``CollisionShape2D``. Indeed, we don't want to add a sprite to our collision detection but to our player.
+If the node is misplaced in the tree, you can drag and drop it (press and hold on the node and drag it) onto the player node.
 
-Vous pouvez aussi renommer le nœud du joueur en ``"Player"``. Après ça, vous devriez avoir une arborescence comme ça:
+You can also rename the player node to ``Player``. After that, you should have a tree structure like this:
 
 .. image:: img/playerscene.png
 
-Encore un warning! Cette fois-ci sur l'``AnimatedSprite2D``. Ajoutez donc un ``SpriteFrames``, comme le recommande le warning.
+Another warning! This time about the ``AnimatedSprite2D``. So add a ``SpriteFrame``, as the warning recommends.
 
 .. tip::
-   Pour ajouter un nouveau ``SpriteFrames``, cliquez d'abord sur l'AnimatedSprite2D dans l'arborescence.
-   Vous aurez alors accès aux propriétés du nœud dans l'inspecteur, qui se trouve à droite de votre fenêtre.
+   To add a new ``SpriteFrame``, first click on the AnimatedSprite2D in the tree.
+   You will then have access to the node's properties in the Inspector, which is located on the right side of your window.
 
-Après avoir ajouté un nouveau SpriteFrames, une nouvelle fenêtre devrait apparaître en bas de votre écran.
-Si ce n'est pas le cas, cliquez sur le ``SpriteFrames`` que vous venez de créer dans l'inspecteur.
+After adding a new SpriteFrame, a new window should appear at the bottom of your screen.
+If not, click on the ``SpriteFrames`` you just created in the Inspector.
 
 .. image:: img/spriteframesopened.png
 
-Cette fenêtre est l'éditeur d'animations. Vous pouvez la fermer et la réouvrir en cliquant sur *SpriteFrames* en bas de l'écran.
-À gauche, vous trouverez une liste de toutes les animations disponibles. Pour l'instant, il n'y en a qu'une, elle s'appelle ``"default"``.
-Renommez-la ``"idle"``.
+This window is the Animation Editor. You can close and reopen it by clicking on *SpriteFrames* at the bottom of the screen.
+On the left, you will find a list of all available animations. Currently, there is only one, called ``default``.
+Rename it ``idle``.
 
 .. note::
-   Une animation d'idle, c'est l'animation qui se joue quand le personnage ne bouge pas.
-   Généralement, elle représente le personnage qui respire, qui regarde un peu atour de lui, pour ajouter du mouvement à l'image et pour faire vivre le jeu.
-   Dans certains jeux, si vous attendez suffisamment longtemps, des animations spéciales vont se jouer: le personnage qui se gratte la tête, qui s'assied par terre ou s'endort...
+   An idle animation is the animation that plays when the character is not moving.
+   Generally, it depicts the character breathing, looking around a bit, to add movement to the image and bring the game to life.
+   In some games, if you wait long enough, special animations will play: the character scratching their head, sitting on the ground, or falling asleep..
 
-Cliquez ensuite sur l'icône de grille: *Add frames from sprite sheet*, et ouvrez le fichier ``assets/player.png``.
+Then click on the grid icon: *Add frames from sprite sheet*, and open the file ``assets/player.png``.
 
-.. note::
-   Une spritesheet est un fichier image qui contient toutes les frame d'animation d'un objet.
-   Cela permet de n'avoir qu'un fichier, au lieu de plusieurs, ce qui économise de la place et facilite l'édition des animations.
+.. note:: 
+   A spritesheet is an image file that contains all the animation frames for an object.
+   This allows you to have only one file, instead of multiple files, saving space and making animation editing easier.
 
-Cela vous ouvrira le *Spritesheet Cutter*, qui ressemblera à ça:
+This will open the *Spritesheet Cutter*, which will look like this:
 
 .. image:: img/spritesheetCutter.png
 
-La spritesheet forme une grille où chaque frame de l'animation se trouve dans une case.
-Vous pouvez alors mettre le nombre de frames par colonne **[1]** et le nombre de frames par ligne **[2]**. Pour nous, on a 6 colonnes et 8 lignes.
+The spritesheet forms a grid where each frame of the animation is placed in a cell.
+You can then set the number of frames per column **[1]** and the number of frames per row **[2]**. In our example, we have 6 columns and 8 rows.
 
-Une fois les frames alignées avec la grille **[3]**, vous pouvez séléctionner les 6 premières frames (toute la première ligne), en cliquant dessus dans l'ordre ou en restant appuyé.
-Finalement, vous pouvez appuyer sur *Add 6 Frames* en bas, pour ajouter les frames à votre animation d'idle.
-Vous devriez voir les frames sélectionnées apparaître dans l'éditeur en bas:
+Once the frames are aligned with the grid **[3]**, you can select the first 6 frames (the entire first row) by clicking on them in order or by pressing and holding.
+Finally, you can click *Add 6 Frames* at the bottom to add the frames to your idle animation.
+You should see the selected frames appear in the editor at the bottom:
 
 .. image:: img/spriteframesIdle.png
 
-Maintenant, vous pouvez jouer l'animation, en appuyant sur **play** **[1]**,
-et changer la vitesse de l'animation, en changeant ses **FPS** (Frames Per Second / Images par seconde) **[2]**.
+Now you can play the animation by pressing **play** **[1]**,
+and change the animation speed by changing its **FPS** (Frames Per Second) **[2]**.
 
-Une animation d'idle c'est bien, mais, nous aimerions que notre joueur puisse bouger,
-donc on va rajouter une animation de course.
+An idle animation is fine, but we'd like our player to be able to move,
+so we'll add a running animation.
 
-Pour cela, appuyez sur **Add Animation**, en haut à gauche de la fenêtre `SpriteFrames`.
-Renommez cette animation ``"run"``, et répétez les mêmes étapes que pour l'animation d'idle,
-en sélectionnant les 6 frames suivantes (toute la deuxième ligne).
+To do this, press **Add Animation** in the top left of the `SpriteFrames` window.
+Rename this animation ``"run"``, and repeat the same steps as for the idle animation,
+selecting the next 6 frames (the entire second row).
 
-Pour plus de fluidité, vous pouvez mettre les deux animations à **8 FPS** (ou ajuster la vitesse à votre préférence).
+For smoother gameplay, you can set both animations to **8 FPS** (or adjust the speed to your preference).
 
-Et finalement, vous pouvez ajuster la hitbox créée :ref:`précédemment <init-joueur>` à notre sprite.
+Finally, you can adjust the hitbox created :ref:`earlier<init-player>` to fit our sprite.
 
-.. tip::
-   Pour ajuster la taille de la collision plus facilement, vous pouvez glisser la ``CollisionShape2D`` en dessous de l'``AnimatedSprite2D`` dans la scène.
-   Les nœuds qui sont **en dessous** dans l'arborescence apparaîtront **au dessus** dans l'éditeur (car ils sont créés après, et sont donc rendus au dessus).
-   Vous pouvez ensuite remettre la ``CollisionShape2D`` à sa place. Ce n'est pas très important, car elle ne sera pas visible une fois le jeu lancé.
+.. tip:: 
+   To adjust the collision size more easily, you can drag the ``CollisionShape2D`` below the ``AnimatedSprite2D`` in the scene. 
+   Nodes that are **below** in the tree will appear **above** in the editor (because they are created afterward and are therefore rendered on top).
+   You can then move the ``CollisionShape2D`` back to its original position. This isn't very important, as it won't be visible once the game is launched.
 
 .. image:: img/playerspriteandcollision.png
 
-.. note::
-   Il est généralement préférable d'avoir une hitbox légèrement plus petite que le visuel du personnage.
-   Cela évite des situations du type: *"Mais* **#@!$&** *j'aurais pas dû mourir là l'ennemi il m'a même pas touché c'est abusé ce jeu est trop nul!"*
+.. note:: It's generally best to have a hitbox that's slightly smaller than the character's appearance.
+   This avoids situations like: *"But* **#@!$&** *I shouldn't have died there, the enemy didn't even touch me, it's ridiculous, this game is so bad!"*
 
 .. _move-init:
 
-Création des mouvements
+Movements Creation
 -----------------------
 
-Actuellement nous avons un joueur, qui a des animations, mais qui ne fait pas grand chose.
-Si vous lancez la scène avec **F6** ou en cliquant sur **l'icône de Clap avec un petit triangle** en haut à droite, vous verrez votre joueur dans un coin de l'écran qui ne peut pas se déplacer.
-Dans cette partie, nous allons lui ajouter des mouvements rudimentaires.
+Currently, we have a player with animations, but who doesn't do much.
+If you launch the scene with **F6** or by clicking on the **Clap icon with a small triangle** in the top right corner, you'll see your player in a corner of the screen who can't move.
+In this section, we'll add some basic movements.
 
-Création du script
+Creating the Script
 ~~~~~~~~~~~~~~~~~~
 
-Pour ce faire, nous allons devoir utiliser des bouts de code.
-Premièrement, nous allons rattacher un script au Joueur, en séléctionnant le ``CharacterBody2D`` dans la hiérarchie,
-et en cliquant sur **l'icône en forme de parchemin**: `Attach a new or existing script to the selected node` en haut de la fenêtre hiérarchie
-(ou **Clic-droit -> Attach Script**).
+To do this, we'll need to use some code snippets.
+First, we'll attach a script to the Player by selecting the ``CharacterBody2D`` in the hierarchy,
+and clicking on the **scroll-shaped icon**: `Attach a new or existing script to the selected node` at the top of the hierarchy window
+(or **Right-click -> Attach Script**).
 
-Ce pop-up s'ouvrira alors:
+This pop-up will then open:
 
 .. image:: img/createplayerscript.png
 
-Il vous faudra:
+You will need to:
 
-1. Décocher la case template
-2. Renseigner l'endroit où votre script sera stocké. Créez un dossier ``"scripts"`` et mettez-y le script ``"player.gd"`` comme dans l'exemple.
+1. Uncheck the template box
+2. Specify the location where your script will be stored. Create a folder named ``"scripts"`` and place the ``"player.gd"`` script in it, as shown in the example.
 
-Validez, et votre éditeur changera en mode **Script** pour ouvrir le fichier créé:
+Confirm, and your editor will switch to **Script** mode to open the created file:
 
 .. image:: img/playerEmptyScript.png
 
-Initiation au GDScript
+Introduction to GDScript
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Le fichier créé est en GDScript, le langage de script utilisé par Godot.
-Ce langage est très similaire à Python, donc si vous avez un peu d'expérience en Python,
-vous devriez être plutôt à l'aise en GDScript.
+The created file is in GDScript, the scripting language used by Godot.
+This language is very similar to Python, so if you have some experience with Python,
+you should be quite comfortable with GDScript.
 
-Nous allons voir ici les éléments essentiels de ce langage: les **variables** et les **fonctions**
+Here we will look at the essential elements of this language: **variables** and **functions**
 
-**Les variables :**
+**Variables:**
 
-Pour créer une variable, il faut écrire:
-
-.. code-block:: gdscript
-
-   var nom_variable = valeur
-
-En GDScript, les variables ne sont pas typées, c'est-à-dire qu'elles peuvent changer de type, comme en Python.
-Par exemple, on peut écrire:
-
-.. code:: gdscript
-
-    var x = 1 # x est de type int (entier)
-    x = "hello" # x est un string (chaîne de caractère)
-
-Il est préférable de typer ses variables, pour plusieurs raisons:
-
-- Éviter les erreurs de type (ne pas faire n'importe quoi avec nos variables, comme dans l'exemple précédent)
-- Donner une indication du type de notre variable à notre éditeur, pour qu'il nous suggère des informations pertinentes
-- Optimiser le code (un code avec des variables typées sera normalement plus rapide qu'un code sans typage)
-
-La syntaxe est la suivante:
+To create a variable, you must write:
 
 .. code-block:: gdscript
 
-    var nom:type = valeur
-    # Exemples
-    var x: int = 1
-    var y: String = "hello"
-    x = "bonjour" # Erreur, on ne peut pas assigner une valeur de type "String" à un "int".
+   var variable_name = value
 
-Finalement, vous pouvez *"exporter"* vos variables,
-pour faire en sorte qu'elles soient modifiables depuis l'Inspecteur, en mettant ``@export`` devant:
+In GDScript, variables are not typed, meaning they can change type, just like in Python.
+For example, we can write:
+
+.. code::gdscript
+
+   var x = 1 # x is of type int (integer)
+   x = ``hello`` # x is a string (character string)
+
+It is preferable to type your variables for several reasons:
+
+- Avoid type errors (don't do anything wrong with your variables, as in the previous example)
+- Give your editor an indication of the type of your variable, so it can suggest relevant information
+- Optimize the code (code with typed variables will normally be faster than untyped code)
+
+The syntax is as follows:
+
+.. code-block::gdscript
+
+   var name:type = value
+   # Examples
+   var x: int = 1
+   var y: String = "hello"
+   x = "hi" # Error, you cannot assign a value of type "String" to a "int".
+
+Finally, you can *"export"* your variables,
+making them editable from the Inspector, by adding ``@export`` before them:
 
 .. code-block:: gdscript
 
-   @export var nom_variable:type = valeur
+   @export var nom_variable:type = value
 
 .. warning::
-   Attention, vous ne pouvez pas *exporter* des variables définies dans des fonctions
+   Careful, you cannot *export* variables defined within functions.
 
+**Functions**
 
-**Les fonctions**
-
-Pour créer une fonction, il faut écrire:
+To create a function, you must write:
 
 .. code-block:: gdscript
 
-    func nom_fonction(var1, var2, ...):
+    func function_name(var1, var2, ...):
         # ...
         return var3
 
-
-Cette syntaxe est très similaire à celle de Python.
-Si vous voulez spécifier les types de vos fonctions, vous pouvez faire:
+This syntax is very similar to that of Python.
+If you want to specify the types of your functions, you can do this:
 
 .. code-block:: gdscript
 
-    func nom_fonction(var1:type1, var2:type2, ...)->typeRetour:
+    func function_name(var1:type1, var2:type2, ...)->returnType:
         # ...
-        return var3 # var3 est donc de type typeRetour
-        # Si vous voulez ne rien retourner, mettez void à la place de typeRetour
-        # Vous pouvez alors ne pas mettre de return, ou juste "return" sans rien après
+        return var3 # var3 is of type returnType
+        # if you don't want to return anything, put void instead of returnType
+        # In this case you can write just "return" with nothing behind it, or ommit the "return" completely
 
-Vous allez parfois utiliser des fonctions prédéfinies, comme ``_ready()`` ou ``_physics_process(delta)``,
-ce sont des fonctions qui sont utilisées par Godot, et qui sont appelées à des moments précis.
-Ce sont ces fonctions qui vont vous permettre de faire exécuter un bout de code, à un moment précis.
-Par exemple:
+You will sometimes use predefined functions, such as ``_ready()`` or ``_physics_process(delta)``,
+these are functions used by Godot and called at specific times.
+These functions allow you to execute a piece of code at a specific time.
+For example:
+- The ``_ready`` function is called once when your object is added to your game.
+- The ``_physics_process(delta)`` function is called each time Godot recalculates its physics (by default: 60 times per second, regardless of the current frame rate).
+   The ``delta`` parameter represents the time (in seconds) since the last call.
+- The ``_process(delta)`` function is called every frame (different from ``_physics_process``, as it depends on the frame rate).
+   The ``delta`` parameter represents the time (in seconds) since the last call (from the last frame).
 
-- La fonction ``_ready`` est appelée une unique fois lorsque votre objet est ajouté dans votre jeu
-- La fonction ``_physics_process(delta)`` est appelée à chaque fois que Godot refait les calculs de physique (de base: 60 fois par secondes, peu importe le framerate actuel).
-  Le paramètre ``delta`` représente la durée (en secondes) depuis le dernier appel.
-- La fonction ``_process(delta)`` est appelée à chaque frame (différent de ``_physics_process``, car dépend du framerate).
-  Le paramètre ``delta`` représente la durée (en secondes) depuis le dernier appel (depuis la dernière frame).
+Rudimentary Movement Implementation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+In practice, to move our player, we need several things:
 
-Implémentation mouvements rudimentaires
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1. Detect where the player wants to move with each physics update
+2. Modify the player's velocity
+3. Make the player move and handle collisions with other elements
 
-Concrètement, pour bouger notre joueur, il nous faut plusieurs choses:
-
-1. Détecter à chaque update de la physique, où le joueur veut bouger
-2. Modifier la vélocité du joueur
-3. Faire bouger le joueur, et gérer les collisions avec les autres éléments
-
-Pour celà, nous pouvons utiliser le code suivant:
+For this, we can use the following code:
 
 .. code-block:: GDScript
 
@@ -257,30 +250,29 @@ Pour celà, nous pouvons utiliser le code suivant:
        velocity.x = directionX * 300.0
        move_and_slide()
 
-Ce code est dans la fonction ``_physics_process`` et s'exécutera donc à chaque update du moteur physique.
-À chaque appel, nous initions une variable direction, qui va prendre comme valeur, la valeur de retour de ``Input.get_axis("ui_left", "ui_right")``
+This code is inside the ``_physics_process`` function and will therefore execute with each physics engine update.
+With each call, we initialize a variable direction, which will take as its value the return value of ``Input.get_axis("ui_left", "ui_right")``
 
-``Input.get_axis(input1, input2)`` est une fonction qui va prendre deux inputs, et qui va "simuler" un joystick entre les deux, et dire où ce joystick est.
-Si le joystick est à gauche, donc que input1 est appuyé, la fonction renverra -1,
-si le joystick est à droite, elle renverra 1,
-sinon, elle renverra 0 (si vous jouez au joystick, vous pourrez avoir toutes les valeurs entre -1 et 1, mais si vous jouez au clavier, vous n'aurez que les valeurs entières).
+``Input.get_axis(input1, input2)`` is a function that takes two inputs and simulates a joystick between them, indicating its position.
+If the joystick is to the left (i.e., input1 is pressed), the function will return -1;
+if the joystick is to the right, it will return 1;
+otherwise, it will return 0 (if you are using a joystick, you can get all values ​​between -1 and 1, but if you are using a keyboard, you will only get integer values).
 
-Ensuite, après avoir récupéré la direction du joueur sur l'axe X,
-nous allons pouvoir changer la vélocité du joueur sur l'axe X,
-en multipliant la direction par `300.0`, `300.0` étant la vitesse que l'on donnera à notre joueur.
+Next, after retrieving the player's direction on the X-axis,
+we can change the player's velocity on the X-axis by
+multiplying the direction by `300.0`, where `300.0` is the speed we want to give our player.
 
-Finalement, nous travaillons avec un ``CharacterBody2D``, et donc nous avons accès à la fonction ``move_and_slide()``,
-qui va automatiquement faire bouger le joueur, et gérer ses collisions.
+Finally, we are working with a ``CharacterBody2D``, and therefore we have access to the ``move_and_slide()`` function,
+which will automatically move the player and handle collisions.
 
-Pour tester ce code, vous pouvez appuyer sur ``F6`` (ou sur ``fn+F6``) pour faire tourner la scène actuelle.
+To test this code, you can press ``F6`` (or ``fn+F6``) to run the current scene.
 
-.. hint:: Exercice: Faire bouger le joueur verticalement
-   Maintenant que vous savez faire bouger le joueur sur l'axe X, essayez (sans regarder la suite) de le faire bouger
-   sur l'axe Y.
-   Indice: les inputs pour le haut et le bas sont respectivement ``"ui_up"`` et ``"ui_down"``
+.. hint:: Exercise: Move the player vertically
+   Now that you know how to move the player along the X-axis, try (without looking at the rest) to move them
+   along the Y-axis.
+   Hint: the inputs for up and down are respectively ``"ui_up"`` and ``"ui_down"``
 
-
-Une fois que nous avons fait les mouvements sur un axe, il est simple de les transposer sur l'autre axe:
+Once we've made the movements along one axis, it's easy to transpose them to the other axis:
 
 .. code-block:: gdscript
 
@@ -291,10 +283,9 @@ Une fois que nous avons fait les mouvements sur un axe, il est simple de les tra
        velocity.y = directionY * 300.0
        move_and_slide()
 
-Mais pour simplifier notre code, nous n'allons pas utiliser une autre variable pour l'axe Y.
-À la place, nous allons créer une variable ``direction`` qui sera un ``Vector2``, qui aura comme abscisse la valeur de
-``directionX`` et comme ordonnée, celle de ``directionY``.
-Voici le nouveau code, pour un mouvement dans les deux axes:
+But to simplify our code, we won't Use a different variable for the Y-axis.
+Instead, we'll create a variable called ``direction`` which will be a ``Vector2``, with the x-coordinate of ``directionX`` and the y-coordinate of ``directionY``.
+Here's the new code for movement along both axes:
 
 .. code-block:: gdscript
 
@@ -305,42 +296,41 @@ Voici le nouveau code, pour un mouvement dans les deux axes:
        velocity = direction * speed
        move_and_slide()
 
-Ce code fonctionne exactement de la même manière que le code précédent, mais à l'exception du précédent,
-celui-ci n'a pas besoin d'assigner individuellement les valeurs de ``velocity.x`` et ``velocity.y``,
-on assigne directement ``velocity``.
-De plus, dans ce code, on va mettre la vitesse maximale dans une variable, ``speed``.
+This code works exactly the same way as the previous code, but unlike the previous one,
+this one doesn't need to individually assign the values ​​of ``velocity.x`` and ``velocity.y``;
+it assigns ``velocity`` directly.
+Furthermore, in this code, we'll store the maximum speed in a variable, ``speed``.
 
 .. _anims-fin:
 
-Animation du personage
+Character Animation
 ----------------------
 
-Actuellement, notre personage bouge, mais il reste toujours statiquement dans la même frame de la même animation.
-Il est temps de changer ça !
+Currently, our character moves, but always remains statically within the same frame of the same animation.
+It's time to change that!
 
-Lancement de l'animation au début du jeu
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Starting the animation at the beginning of the game
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Il nous faut premièrement que l'animation du personnage se joue, dès qu'il est ajouté au jeu.
-Pour faire cela, on peut utiliser ce code:
+First, we need the character animation to play as soon as it's added to the game.
+To do this, we can use this code:
 
 .. code-block:: gdscript
 
    func _ready():
        $AnimatedSprite2D.play("idle")
 
-La fonction ``_ready()`` s'exécute dès que l'objet est ajouté à la scène.
-Ensuite, la ligne ``$AnimatedSprite2D.play("idle")`` prend le fils ``AnimatedSprite2D`` de notre joueur,
-et lui dit de jouer l'animation "idle" (l'animation par défaut)
+The ``_ready()`` function executes as soon as the object is added to the scene.
+Next, the line ``$AnimatedSprite2D.play("idle")`` takes the child ``AnimatedSprite2D`` of our player,
+and tells it to play the ``idle`` animation (the default animation).
 
+Dynamic Animation Change
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Changement dynamique de l'animation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Now that the animation is playing, we'd like it to change dynamically depending on whether the character is moving or not.
+To do this, we'll detect, in ``_physics_process``, when the player is moving or not.
 
-Maintenant que l'animation se joue, on aimerait bien qu'elle change dynamiquement selon si le personnage bouge, ou pas
-Pour cela, on va détecter, dans ``_physics_process`` quand le joueur bouge, ou pas.
-
-Vous pouvez alors ajouter ce bout de code à la fin de ``_physics_process``:
+You can add this code snippet to the end of ``_physics_process``:
 
 .. code-block:: gdscript
 
@@ -351,27 +341,26 @@ Vous pouvez alors ajouter ce bout de code à la fin de ``_physics_process``:
         else:
             $AnimatedSprite2D.animation = "run"
 
-Donc à chaque update, on va regarder si le joueur est immobile (si il ne va dans aucune direction),
-si `oui`, on va dire à l'``AnimatedSprite2D`` de changer l'animation à l'animation d'``idle``.
-Si `non`, cela veut dire que le joueur est en train de bouger,
-donc on va dire à l'``AnimatedSprite2D`` de changer l'animation à l'animation de ``run``.
+So, with each update, we'll check if the player is stationary (if they're not moving in any direction).
+If `yes`, we'll tell ``AnimatedSprite2D`` to change its animation to the ``idle`` animation.
+If `no`, it means the player is moving,
+so we'll tell ``AnimatedSprite2D`` to change its animation to the ``run`` animation.
 
+Dynamically Changing Sprite Orientation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Changement dynamique de l'orientation du sprite
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We have an animated sprite whose animation changes dynamically.
+But whether you go right or left, the sprite itself is always facing right.
 
-Nous avons un sprite animé, qui change d'animation dynamiquement.
-Mais qu'on aille à droite ou à gauche, le sprite, lui, est toujours tourné vers la droite.
+So we're going to rotate the player's sprite according to the direction the player is moving.
 
-Nous allons donc tourner le sprite du joueur, selon la direction dans laquelle le joueur va.
+.. hint:: Exercise: Rotate the player according to their direction
+   Rotating the player according to where they are going is similar to changing their animation depending on whether they are running.
+   Try implementing this functionality on your own, without looking at the solution.
+   Hint: By default, ``$AnimatedSprite2D.flip_h = false``, and you need to set this variable
+   to ``true`` to flip the sprite.
 
-.. hint:: Exercice: Faire tourner le joueur selon sa direction
-   Tourner le joueur selon là où il va est similaire à changer son animation selon si il court.
-   Essayez donc d'implémenter cette fonctionalité tout seul, sans regarder la solution.
-   Indice: Par défaut, ``$AnimatedSprite2D.flip_h = false``, et il faut mettre cette variable
-   à ``true`` pour inverser le sprite.
-
-Le code pour faire cela est:
+The code to do this is:
 
 .. code-block:: gdscript
 
@@ -381,75 +370,72 @@ Le code pour faire cela est:
         $AnimatedSprite2D.flip_h = true
 
 .. warning::
-   Si dans le code précédent, vous aviez mis un ``else:`` à la place du ``elif direction.x < 0:``,
-   votre joueur va se retourner à sa direction initiale, dès que vous arrêtez d'avancer.
+   If in the previous code you had used an ``else:`` instead of ``elif direction.x < 0:``,
+   your player will turn around to face their initial direction as soon as you stop moving.
 
 .. _move-fin:
 
-Peaufinage des mouvements
+Refining the Movements
 -------------------------
 
-Actuellement, nous avons un système de mouvement qui fonctionne,
-mais qui est assez rudimentaire, nous allons donc l'améliorer!
+Currently, we have a movement system that works,
+but it's quite rudimentary, so we're going to improve it!
 
-Ajustement des mouvements en diagonales
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Adjusting Diagonal Movement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Le premier problème, c'est que notre joueur se déplace plus vite quand il va en diagonale, que lorsqu'il va en ligne droite:
+The first problem is that our player moves faster when moving diagonally than when moving in a straight line:
 
 .. image:: img/movementnorm.png
 
-On voit ici que le vecteur bleu (en diagonale) a une norme plus grande que les vecteurs rouge et vert (qui sont unitaire, c'est-à-dire que leur norme vaut 1).
-Ainsi, lorsque le personnage se déplace en diagonale, il va plus vite:
+Here we see that the blue vector (diagonally) has a larger norm than the red and green vectors (which are unit vectors, meaning their norm is 1).
+Thus, when the character moves diagonally, they move faster:
 
 .. math::
-   N_{rouge} = \left\| \begin{pmatrix} 1 & 0 \end{pmatrix} \right\| = 1 \quad
-   N_{vert} = \left\| \begin{pmatrix} 0 & 1 \end{pmatrix} \right\| = 1 \quad
-   N_{bleu} = \left\| \begin{pmatrix} 1 & 1 \end{pmatrix} \right\| = \sqrt{2}
+   N_{red} = \left\| \begin{pmatrix} 1 & 0 \end{pmatrix} \right\| = 1 \quad
+   N_{green} = \left\| \begin{pmatrix} 0 & 1 \end{pmatrix} \right\| = 1 \quad
+   N_{blue} = \left\| \begin{pmatrix} 1 & 1 \end{pmatrix} \right\| = \sqrt{2}
 
+To fix this, we need to ensure that the length of the direction vector is always equal to 1; this is called normalizing a vector.
+For this, there is the ``.normalized()`` method which returns the normalized vector.
 
-Pour régler cela, il faut faire en sorte que la longueur du vecteur direction soit toujours égale à 1, on appelle ça normaliser un vecteur.
-Pour cela, il existe la méthode ``.normalized()`` qui renvoie le vecteur normalisé.
-
-Vous pouvez donc la rajouter à la fin de la définition de ``direction``:
+You can therefore add it to the end of the ``direction`` definition:
 
 .. code-block:: gdscript
 
    var direction:Vector2 = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down")).normalized()
 
-Ajout d'inertie
+Adding Inertia
 ~~~~~~~~~~~~~~~
 
-Actuellement, notre joueur atteint sa vitesse maximale instantanément, et s'arrête instantanément.
-Pour remédier à ce problème, nous allons utiliser une fonction, appelée ``lerp``, qui s'utilise de cette façon:
+Currently, our player reaches their maximum speed instantly and stops instantly.
+
+To remedy this problem, we will use a function called ``lerp``, which is used as follows:
 
 .. code-block:: gdscript
 
    val = lerp(val, max_val, poids)
 
-
-Elle va retourner la prochaine valeur que notre variable doit prendre,
-pour avoir une transition douce entre la valeur initiale et notre valeur maximale.
-Le poids va nous permettre de déterminer la "douceur" de la transition:
+It will return the next value our variable should take,
+to ensure a smooth transition between the initial value and our maximum value.
+The weight will allow us toTo determine the "smoothness" of the transition:
 
 .. image:: img/graphLerp.png
 
-Dans notre cas, le poids représentera l'accélération.
-Or, on veut qu'elle dépende du temps qui s'est écoulé,
-et pas du nombre de frames (car le nombre de frame par seconde peut varier selon les ordinateurs).
+In our case, the weight will represent the acceleration.
+However, we want it to depend on the elapsed time,
+and not on the number of frames (because the number of frames per second can vary depending on the computer).
 
-On peut donc initier une variable ``acceleration`` dans le corps principal:
+We can therefore initialize a variable ``acceleration`` in the main body:
 
 .. code-block:: gdscript
 
    @export var acceleration:float = 10
 
-
-Et changer la ligne qui assignait une valeur à ``velocity`` dans ``_physics_process(delta):``:
+And change the line that assigned a value to ``velocity`` in ``_physics_process(delta):``:
 
 .. code-block:: gdscript
 
    velocity = lerp(velocity, direction * speed, acceleration * delta)
 
-
-Et avec ça, nous avons fini la création de notre joueur, ainsi que de son système de mouvement !
+And with that, we have finished creating our player, as well as its movement system!

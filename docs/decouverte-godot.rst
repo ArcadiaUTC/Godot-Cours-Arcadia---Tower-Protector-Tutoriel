@@ -78,6 +78,7 @@ In this section, we'll describe the different elements that make up the editor:
    The most important tab is **Project -> Project Settings**, where you can modify the various project settings (like the window size, for example).
 
 7. In the top right corner, you'll find various buttons to launch your project. Here are the three most important:
+
    * **Triangle** *(F5):* Launch the project (launches the game from the title screen, just like a player would).
    * **Square** *(F8):* Stop the project while it's running (very useful!).
    * **Clap with a small triangle** *(F6):* Launch the current scene, very useful when you want to debug a scene without having to restart the entire game each time to access it.
@@ -93,7 +94,7 @@ After creating the project, we need to install the various `assets` we will use 
 .. note:: 
    An `asset` is the name given to the elements of a video game (generally non-code). For example, a texture, a sound, and a font are assets (respectively visual, audio, and re-visual).
 
-To do this, download the file :download:`here <resources/Godot-Cours-Arcadia---Tower-Protector--- Assets.zip>`, extract the ``assets`` folder, and place it in your project folder.
+To do this, download the file :download:`here <ressources/Godot-Cours-Arcadia---Tower-Protector--- Assets.zip>`, extract the ``assets`` folder, and place it in your project folder.
 Your project folder should contain at least the following:
 
 .. image:: img/filesAsset.png
