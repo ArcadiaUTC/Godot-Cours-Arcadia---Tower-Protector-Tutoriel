@@ -3,27 +3,27 @@
 .. .. image:: img/preview.gif
 ..    :alt:
 
-.. note::
+.. note:: 
 
-   Ce tutoriel est destiné à tous les publics, y compris celles et ceux qui n'ont jamais fait de jeux vidéo auparavant.
-   Des connaissances en informatique, un poil de maths et de physiques sont bien sûr les bienvenues, mais pas nécessaires.
-   Si vous avez des difficultés, des remarques, ou d'autres questions, n'hésitez pas à les poser sur le serveur discord d'Arcadia!
+   This tutorial is intended for all audiences, including those who have never played video games before. 
+   Knowledge of computer science, a bit of math and physics are of course welcome, but not necessary. 
+   If you have any difficulties, comments, or other questions, don't hesitate to ask them on the Arcadia discord server!
 
 
-Sommaire
+Summary
 --------
 
-.. toctree::
-   :maxdepth: 1
+.. toctree:: 
+   :maxdepth: 1 
 
-   Accueil <self>
-   Découverte de Godot <decouverte-godot>
-   Création du Joueur <creation-joueur>
-   Création du monde <creation-monde>
-   Création de la tour <creation-tour>
-   Création des ennemis <creation-ennemis>
-   Création de l'interface <creation-gui>
-   Création du menu <creation-menu>
-   Bonus: Petit coup de polish <polish>
+   Home <self> 
+   Discovering Godot <decouverte-godot> 
+   Creating the Player <creation-joueur> 
+   Creating the world <creation-monde> 
+   Creating the tower <creation-tour> 
+   Creating enemies <creation-ennemies> 
+   Creating the interface <creation-gui> 
+   Creating the menu <creation-menu> 
+   Bonus: A little polish <polish>
 
-Pour démarrer l'aventure, cliques sur le bouton `Suivant` en bas à droite de cette page!
+To start the adventure, click on the `Next` button at the bottom right of this page!

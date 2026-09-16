@@ -14,7 +14,7 @@ Godot works with scenes and nodes. We'll come back to this later, but a node is 
 You can make your scenes interact with each other (for example, putting the *Player* scene inside the *World* scene).
 
 
-.. installating-godot:
+.. installing-godot:
 
 Installing Godot
 ---------------------
