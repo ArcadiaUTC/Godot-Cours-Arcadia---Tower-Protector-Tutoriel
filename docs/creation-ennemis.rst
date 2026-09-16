@@ -1,72 +1,72 @@
-Création des ennemis
+Enemy creation
 ====================
 
-Okay! C'est pas mal, mais notre monde est un peu vide. Peuplons-le avec des ennemis!
+Okay! It's not bad, but our world is a bit empty. Let's fill it with enemies!
 
 .. image:: img/preview.gif
 
-Création des ennemis
+Enemy creation
 --------------------
 
-Créez une nouvelle scène avec un nœud ``Area2D``.
+Create a new scene with an ``Area2D`` node.
 
 .. note::
-    Les ``Area2D`` sont des nœuds utilisés pour détecter des collisions. À contrario des ``CharacterBody2D`` et ``StaticBody2D``, les ``Area2D`` ne sont pas utilisées pour
-    des collisions physiques (des trucs qui se cognent entre eux et qui ne peuvent pas se traverser).
-    Les ``Area2D`` détectent d'autres objets avec des collisions lorsque ceux-ci rentrent à l'intérieur de la collision de l'``Area2D`` (un peu comme un radar).
+``Area2D`` nodes are used to detect collisions. Unlike ``CharacterBody2D`` and ``StaticBody2D``, ``Area2D`` nodes are not used for
+physical collisions (objects bumping into each other instead of passing through one another).
+``Area2D`` nodes detect other objects with collision shapes when those objects enter the ``Area2D``'s collision area (much like a radar).
 
-On utilise une ``Area2D`` pour les ennemis pour plusieurs raisons.
+We use an ``Area2D`` for the enemies for several reasons.
 
-Premièrement, on souhaite détecter le contact entre un ennemi et le joueur. Lorsque le joueur rentre dans la collision de l'ennemi, ce dernier meurt.
-Comme vous pouvez le voir sur le gif de présentation, les ennemis et le joueur ne collisionnent pas entre eux, pas comme le joueur et la tour par exemple.
+First, we want to detect contact between an enemy and the player. When the player enters the enemy's collision area, the enemy dies.
+As you can see in the demonstration GIF, the enemies and the player do not physically collide with each other, unlike the player and the tower, for example.
 
-Deuxièmement, on souhaite détecter le contact entre un ennemi et la tour. Lorsqu'un ennemi entre en collision avec la tour, il meurt, et fait des dégâts à la tour
-(en appellant la fonction ``damage()`` de la tour que l'on a écrite plus tôt). De même, on ne veut pas que l'ennemi ne puisse pas traverser la tour.
+Second, we want to detect contact between an enemy and the tower. When an enemy touches the tower, it dies and deals damage to the tower
+(by calling the tower's ``damage()`` function, which we wrote earlier). Likewise, we do not want the enemy to be blocked from passing through the tower.
 
-Renommez ce nœud ``"Enemy"``, sauvegardez la scène ``enemy.tscn``. Comme d'habitude, ajoutez un ``AnimatedSprite2D`` et une ``CollisionShape2D`` à l'ennemi.
+Rename this node ``"Enemy"`` and save the scene as ``enemy.tscn``. As usual, add an ``AnimatedSprite2D`` and a ``CollisionShape2D`` to the enemy.
 
-Les animations
+Animations
 ~~~~~~~~~~~~~~
 
-Ajoutez un ``SpriteFrames`` à l'``AnimatedSprite2D``. Les animations des ennemis seront un peu plus fournies que les précédentes.
-Nous allons créer 4 animations: ``"spawn"``, ``"run"``, ``"explode"``, et ``"die"``.
+Add a ``SpriteFrames`` resource to the ``AnimatedSprite2D``. The enemy animations will be a bit more extensive than the previous ones.
+We will create 4 animations: ``"spawn"``, ``"run"``, ``"explode"``, and ``"die"``.
 
--   L'animation ``"spawn"`` se jouera lorsque l'ennemi apparaîtra (spawn).
--   L'animation ``"run"`` se jouera lorsque l'ennemi se déplacera vers la tour.
--   L'animation ``"explode"`` se jouera lorsque l'ennemi entrera en contact avec la tour (il explose la tour).
--   L'animation ``"die"`` se jouera lorsque le joueur entrera en contact avec un ennemi (le joueur tue l'ennemi).
+-   The ``"spawn"`` animation will play when the enemy appears.
+-   The ``"run"`` animation will play when the enemy moves toward the tower.
+-   The ``"explode"`` animation will play when the tower is touched by an enemy (blowing it up).
+-   The ``"die"`` animation will play when the player makes contact with an enemy (killing it).
 
-Les animations auront les frames suivantes:
+The animations will use the following frames:
 
--   Dans l'animation ``"spawn"``, cliquez sur **Add frames from sprite sheet**, et sélectionnez le fichier ``assets/enemies/skull_enemy.png``.
-    Réglez la taille de la spritesheet, on a 7 colonnes et 2 lignes. Puis sélectionnez les 3 premières frames. Vous pouvez jouer cette animation à **8 FPS**.
--   Pour l'animation ``"run"``, faites la même chose en sélectionnant les frames 4 à 10.
--   Pour l'animation ``"die"``, de même, en prenant les 4 dernières frames.
--   Pour l'animation ``"explode"``, vous pouvez prendre le fichier ``assets/enemies/Explosions.png`` et y ajouter les 9 frames. Vous pouvez jouer celle-ci à **12 FPS**.
+-   For the ``"spawn"`` animation, click **Add frames from sprite sheet** and select the file ``assets/enemies/skull_enemy.png``. 
+Set the spritesheet dimensions to 7 columns and 2 rows. Then, select the first 3 frames. You can play this animation at **8 FPS**.
+-   For the ``"run"`` animation, do the same, selecting frames 4 through 10.
+-   For the ``"die"`` animation, do the same, taking the last 4 frames.
+-   For the ``"explode"`` animation, use the file ``assets/enemies/Explosions.png`` and add its 9 frames. You can play this one at **12 FPS**.
 
 .. image:: img/enemyspritesheet.png
 
-Activez l'**Animation Looping** sur l'animation ``"run"``, comme on avait fait avec le joueur, afin que cette animation puissent boucler.
+Enable **Animation Looping** for the ``"run"`` animation, just as we did for the player, so that it loops continuously.
 
-La collision
-~~~~~~~~~~~~
+Collision
+~~~~~~~~~
 
-Ajoutez une ``CircleShape2D`` à la ``CollisionShape2D`` de votre ennemi. Mettez un rayon de ``16px`` et descendez-la un peu pour obtenir ce résultat:
+Add a ``CircleShape2D`` to your enemy's ``CollisionShape2D``. Set a radius of ``16px`` and move it down slightly to get this result:
 
 .. image:: img/enemy.png
 
-Le script
----------
+The script
+----------
 
-Ok, on a les bases, maintenant il est temps d'ajouter un comportement à notre ennemi.
+Okay, we have the basics; now it's time to add behavior to our enemy.
 
-Ajoutez un script sur votre ennemi: ``enemy.gd``. Le comportement de notre ennemi est assez simple:
--   Il spawn
--   Il va tout droit vers la tour
--   S'il touche la tour, il explose et fait des dégâts
--   S'il touche le joueur, il meurt
+Add a script to your enemy: ``enemy.gd``. Our enemy's behavior is quite simple:
+-   It spawns
+-   It moves straight toward the tower
+-   If it hits the tower, it explodes and deals damage
+-   If it hits the player, it dies
 
-Initialisation
+Initialization
 ~~~~~~~~~~~~~~
 
 Commençons par créer plusieurs variables:
