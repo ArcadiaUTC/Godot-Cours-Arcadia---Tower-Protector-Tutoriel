@@ -1,120 +1,118 @@
-Création du monde
+World Creation
 =================
 
-Initialisation du monde
+Initializing the World
 -----------------------
 
-Actuellement, on a un joueur, mais on n'a pas le monde dans lequel ce joueur doit se déplacer.
-Pour ce faire, on va commencer par créer une nouvelle scène qui sera notre `Monde`.
+Currently, we have a player, but we don't have the world in which this player will move.
+To create this, we'll start by creating a new scene, which will be our `World`.
 
-Dans cette partie, on va faire tout ce que vous voyez sur l'image ci-dessous.
-À savoir, l'herbe, et les murs, qui auront une collision pour que le joueur ne puisse pas les traverser.
+In this section, we'll create everything you see in the image below.
+Namely, the grass and the walls, which will have collision detection so the player cannot pass through them.
 
 .. image:: img/emptyworld.png
 
-Cliquez sur **Scene -> New Scene** en haut à droite, ou sur le petit **+** en haut à côté de l'onglet de la scène ``player``, ou appuyez sur ``Ctrl+N``.
-Une nouvelle scène vierge devrait s'ouvir:
+Click on **Scene -> New Scene** in the top right corner, or on the small **+** at the top next to the scene's ``player`` tab, or press ``Ctrl+N``.
+A new blank scene should open:
 
 .. image:: img/worldCreation.png
 
-.. hint:: Si vous êtes restés dans l'éditeur de code, vous pouvez revenir à l'éditeur 2D,
-  en cliquant sur le bouton ``2D``, en haut de la fenêtre.
+.. hint:: If you've stayed in the code editor, you can return to the 2D editor by clicking the ``2D`` button at the top of the window.
 
-Ici, nous allons créer un ``Node2D``, pour ça, appuyez sur ``2D Scene`` dans la hiérarchie (en haut à gauche).
-Vous pouvez renommer ce noeud en ``"World"``, et lui ajouter un nœud ``TileMapLayer`` en enfant.
+Here, we'll create a ``Node2D``. To do this, click ``2D Scene`` in the hierarchy (top left).
+You can rename this node to ``World`` and add a ``TileMapLayer`` node as a child.
 
 .. warning::
-  Depuis la version 4.3 de Godot, le nœud ``TileMap``, qui était jusque là utilisé, est devenu obsolète!
-  Le fonctionnement est globalement similaire, mais faites bien attention à prendre un nœud ``TileMapLayer``.
+   Since Godot version 4.3, the ``TileMap`` node, which was used until then, is now obsolete! The functionality is generally similar, but be sure to use a ``TileMapLayer`` node.
 
-.. note::
-  Une tilemap sectionne le monde en une grille. Les cases de cette grille sont remplies avec des blocs que vous placez afin de construire le monde.
-  Cette technique est très répandue dans les jeux 2D. Si vous avez joué à Mario Maker, concrètement, lorsque vous crééz un niveau, vous manipulez une tilemap.
+.. .. note::: 
+   A tilemap divides the world into a grid. The cells of this grid are filled with blocks that you place to build the world.
+   This technique is very common in 2D games. If you've played Mario Maker, you know that when you create a level, you're essentially manipulating a tilemap.
 
-Il s'agit de créer le monde en collant les uns aux autres des petits blocs de terrain, appelés `tiles`.
-Ça permet non seulement de simplifier la création de niveau, mais ça permet également d'optimiser le jeu.
+It involves creating the world by gluing small blocks of terrain, called `tiles`, together.
+This not only simplifies level creation but also optimizes the game.
 
-Customisation du TileMapLayer
+Customizing the TileMapLayer
 -----------------------------
 
-Nous venons de créer un ``TileMapLayer``, mais il ne contient pas encore de `tiles` à placer dans notre monde.
-Pour ça, on va créer un ``TileSet``.
+We've just created a ``TileMapLayer``, but it doesn't yet contain any `tiles` to place in our world.
+For that, we'll create a ``TileSet``.
 
-.. note::
-  Un tileset, c'est un peu comme une palette en peinture.
-  C'est là que seront stockés tous les blocs avec lesquels on va "peindre" notre monde.
-  Le tileset contient non seulement les informations visuelles (à quoi ressemble le bloc), mais d'autres informations comme, par exemple, des informations sur la collision du bloc.
+.. note:: 
+   A tileset is a bit like a palette in painting.
+   This is where all the blocks we'll use to "paint" our world will be stored.
+   The tileset contains not only visual information (what the block looks like), but also other information such as block collision details.
 
-Pour ajouter un ``TileSet`` au ``TileMapLayer``, cliquez sur **Tileset -> New Tileset** dans l'Inspecteur.
-Les onglets **TileSet** et **TileMap** devraient alors s'être ouverts dans la fenêtre du bas de l'éditeur.
-Cliquez sur l'onglet **TileSet**:
+To add a ``TileSet`` to the ``TileMapLayer``, click **Tileset -> New Tileset** in the Inspector.
+The **TileSet** and **TileMap** tabs should then open in the bottom window of the editor.
+Click the **TileSet** tab:
 
 .. image:: img/tilesetEmpty.png
 
-Appuyez sur le bouton **+** **[1]**, cliquez sur **Atlas**, puis séléctionnez le fichier ``assets/tilemap/Tilemap_Flat.png``.
-Godot va alors vous demander si vous voulez créer automatiquement des tiles dans l'Atlas.
-Séléctionnez oui, et vous verrez une grille découper l'image en blocs de 16px par 16px.
-Cependant, nous voulons des cases de 32px par 32px (la taille dépend de votre tileset, mais celui-ci a été dessiné pour des casses de 32*32).
+Press the **+** **[1]** button, click **Atlas**, and then select the file ``assets/tilemap/Tilemap_Flat.png``.
+Godot will then ask if you want to automatically create tiles in the Atlas. 
+Select yes, and you'll see a grid divide the image into 16px by 16px blocks.
+However, we want 32px by 32px tiles (the size depends on your tileset, but this one was designed for 32x32 tiles).
 
 .. image:: img/tilesetGridUncorrectSize.png
 
-Pour régler ce problème, il faut changer la taille des `tiles`, les changeant de ``16px`` à ``32px``,
-à la fois dans le ``TileMapLayer`` **[1]** et dans le ``TileSet`` **[2]**
+To fix this, you need to change the size of the `tiles` from ``16px`` to ``32px``,
+both in the ``TileMapLayer`` **[1]** and in the ``TileSet`` **[2]**.
 
 .. image:: img/tilesetTilesSizeChange.png
 
-Maintenant que vous avez créé votre tileset, vous pouvez aller dans l'onglet **TileMap**, pour "peindre" le monde.
-Pour cela, il suffit de cliquer sur le bloc que vous voulez placer, et "peindre" votre monde dans l'éditeur.
+Now that you've created your tileset, you can go to the **TileMap** tab to "paint" the world.
+To do this, simply click on the block you want to place and "paint" your world in the editor.
 
-Pour être plus rapide, on peut sélectionner le gros carré d'herbe, et utiliser l'outil **Rectangle** pour "peindre" directement un gros rectangle d'herbe.
-Vous devriez avoir un résultat similaire à ceci:
+For a faster approach, you can select the large square of grass and use the **Rectangle** tool to directly "paint" a large rectangle of grass.
+You should get a result similar to this:
 
 .. image:: img/projectaftergrass.png
 
-Vous voyez que la grille de la tilemap ne s'aligne pas tout à fait avec la fenêtre (le rectangle un peu violet dans l'Éditeur).
-Pour ça, on va changer la taille de la fenêtre pour que ça soit un multiple de 32 (la taille des tiles qu'on utilise).
-Allez donc dans **Project -> Project Settings**. Puis sous **Display**, cliquez sur **Windows** et changez:
+You'll notice that the tilemap grid doesn't quite align with the window (the slightly purple rectangle in the editor).
+To fix this, we'll resize the window to a multiple of 32 (the size of the tiles we're using).
+Go to **Project -> Project Settings**. Then, under **Display**, click on **Windows** and change:
 
 - **Viewport Height** = 640
 - **Mode**: ``canvas_item``
 
 .. image:: img/projectsettingswindow.png
 
-Création des murs
+Creating Walls
 -----------------
 
-Maintenant, on peut passer aux murs. Pour ce faire, créez un nouveau ``TileMapLayer`` que vous allez appeler ``"TileMapLayerWalls"``, par exemple.
-Ajoutez un nouveau ``TileSet`` dans l'Inspecteur, et changez la taille des tiles en ``32px``.
+Now we can move on to the walls. To do this, create a new ``TileMapLayer`` that you will call ``"TileMapLayerWalls"``, for example.
+Add a new ``TileSet`` in the Inspector, and change the tile size to ``32px``.
 
-On veut que nos murs aient des collisions. Pour cela, sous l'onglet **Physics layers** du ``TileSet``, cliquez sur le bouton **Add Element**.
-Cela va ajouter un nouveau ``Physics layer``. Si vous voulez en savoir plus sur leur fonctionnement exact, vous pouvez cliquer `ici <https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html>`_.
+We want our walls to have collisions. To do this, under the **Physics layers** tab of the ``TileSet``, click the **Add Element** button.
+This will add a new ``Physics layer``. If you want to learn more about how they work exactly, you can click `here <https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html>`_.
 
 .. image:: img/newphysicslayer.png
 
-Dans l'onglet **TileSet** en bas, ajoutez un nouvel Atlas, comme précédement, cette-fois-ci avec la texture ``assets/tilemap/Tilemap_Elevation.png``, et cliquez sur Oui sur le popup qui s'ouvre.
-Les tiles qu'on a là n'ont pas encore de collision.
+In the **TileSet** tabNext, add a new Atlas, as before, this time with the texture ``assets/tilemap/Tilemap_Elevation.png``, and click Yes in the popup that appears.
+The tiles we have here don't yet have collision detection.
 
-Pour ça, allez dans l'onglet **Paint**, et sélectionnez la propriété ``"Physics Layer 0"``.
+To do this, go to the **Paint** tab and select the ``Physics Layer 0`` property.
 
 .. image:: img/paintproperty.png
 
-L'onglet **Paint** est utilisé pour ajouter des propritétés aux tiles que l'on utilise.
-Ici, on va donc ajouter la proprité d'appartenance au Physics Layer 0, et donc d'avoir une collision.
-Après avoir sélectionné la propriété, cliquez sur toutes les tiles juste à droite.
-En cliquant sur une tile, vous peignez la propriété ``"Physics Layer 0"`` dessus (d'où le nom de l'onglet **Paint**).
-Les tiles devraient devenir bleues, c'est-à-dire que vous venez de leur ajouter une hitbox. Vous pouvez rester appuyé et glisser la souris pour aller plus rapidement.
+The **Paint** tab is used to add properties to the tiles we use.
+Here, we'll add the property of belonging to Physics Layer 0, and therefore have collision detection.
+After selecting the property, click on all the tiles to the right.
+Clicking on a tile paints the ``"Physics Layer 0"`` property onto it (hence the name of the **Paint** tab). 
+The tiles should turn blue, meaning you've just added a hitbox to them. You can click and drag the mouse to move faster.
 
-Une fois que vous êtes sûr que toutes les tiles ont une collision, vous pouvez les peindre depuis l'onglet **TileMap**, comme précédemment.
-Essayez de reproduire le résultat ci-dessous:
+Once you're sure all the tiles have a hitbox, you can paint them from the **TileMap** tab, as before.
+Try to reproduce the result below:
 
 .. image:: img/emptyworld.png
 
-Ajout du joueur
+Adding the player
 ---------------
 
-Vous avez terminé le monde! Mettez-y votre joueur en cliquant sur **Instantiate Child Scene** (l'icône de chaîne), ou en cliquant sur ``Ctrl+Shift+A``:
+You've finished the world! Add your player by clicking on **Instantiate Child Scene** (the chain icon), or by pressing ``Ctrl+Shift+A``:
 
 .. image:: img/addplayer.png
 
-Soyez sûr que le joueur soit placé **en-dessous** des ``TileMapLayers`` dans l'Arborescence de la scène, pour qu'il soit visible **au-dessus** des tiles en jeu.
-Vérifiez aussi que le joueur ne puisse pas traverser les murs, et c'est bon!
+Make sure the player is placed **below** the ``TileMapLayers`` in the Scene Tree so that they are visible **above** the in-game tiles.
+Also check that the player cannot pass through walls, and you're good to go!
